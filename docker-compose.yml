@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  portainer:
+    image: portainer/portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - 9000:9000
+
+  account:
+    build:
+      context: .
+    restart: always
+    ports:
+      - 18080:18080
+
+volumes:
+  portainer-data:
+    driver: local
